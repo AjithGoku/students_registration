@@ -1,0 +1,106 @@
+<%= form_with model: student do |form| %>
+  <div>
+    <%= form.label :Name %><br>
+    <%= form.text_field :name %>
+    <% student.errors.full_messages_for(:name).each do |message| 
+    %>
+     <div><%= message %></div>
+    <% end %>
+  </div>
+    <br>
+
+  <div>
+    <%= form.label :Email %><br>
+    <%= form.email_field :email %>
+    <% student.errors.full_messages_for(:email).each do |message| 
+    %>
+     <div><%= message %></div>
+    <% end %>
+  </div>
+    <br>
+
+  <div>
+    <%= form.label :query, "Mobile Number" %><br>
+    <%= form.telephone_field :mobile_no %>
+    <% student.errors.full_messages_for(:mobile_no).each do |message| 
+    %>
+     <div><%= message %></div>
+    <% end %>
+  </div>
+    <br>
+
+  <div>
+    <label for="student_dob">DOB</label>
+    <br>
+    <%= form.date_field :dob%>
+    <% student.errors.full_messages_for(:dob).each do |message| 
+    %>
+     <div><%= message %></div>
+    <% end %>
+  </div>
+    <br>
+
+    <div>
+    <label for="student_course">Course</label>
+    <br>
+    <%= form.select :course, ["M.tech SE", "B.tech CSE", "B.Sc", "B.tech MECH", "B.tech Civil"] %>
+    <% student.errors.full_messages_for(:course).each do |message| 
+    %>
+     <div><%= message %></div>
+    <% end %>
+    </div>
+
+    <br>
+
+    <div>
+    <label for="student_gender">Gender</label>
+    <br>
+    <%= form.radio_button :gender, "Male" %>
+    <%= form.label :gender_male, "Male" %>
+    <%= form.radio_button :gender, "Female" %>
+    <%= form.label :gender_female, "Female" %>
+    <br>
+    <% student.errors.full_messages_for(:gender).each do |message| 
+    %>
+     <div><%= message %></div>
+    <% end %>
+    </div>
+    <br>
+
+    <div>
+    <label for="student_languages_known">Languages Known</label>
+    <br>
+    
+    <% languages_choices = { "English" => "English", "Tamil" => "Tamil", "Telugu" => "Telugu", "Hindi" => "Hindi" }%>
+    <% p "boss"%>
+    <% p student%>
+    <%= form.collection_check_boxes :languages_known, languages_choices, :first, :last do |b| %>
+    <%= b.label { 
+        if student && student[:languages_known] && student[:languages_known].include?(b.text)
+        b.check_box(checked: true) + b.text
+        else
+        b.check_box + b.text
+        end
+        }%>
+    <%end%>
+    <% student.errors.full_messages_for(:languages_known).each do |message| 
+    %>
+     <div><%= message %></div>
+    <% end %>
+    </div>
+    <br>
+
+  <div>
+    <%= form.label :Address %><br>
+    <%= form.text_area :address %>
+    <% student.errors.full_messages_for(:address).each do |message| 
+    %>
+     <div><%= message %></div>
+    <% end %>
+  </div>
+    <br>
+  
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

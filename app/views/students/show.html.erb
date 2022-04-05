@@ -1,0 +1,67 @@
+<div>
+  <div>
+    <h3>The student details of id <%= @student.id%> </h3>
+    <br/>
+    <table>
+        <tr>
+          <th><b>Registration Number    :</b></th>
+          <td > <%=@student.id%></td>
+        </tr>
+        <tr>
+          <th><b>Name   :</b></th>
+          <td > <%=@student.name%></td>
+        </tr>
+        <tr>
+          <th><b>Email  :<b></th>
+          <td > <%=@student.email%></td>
+        </tr>
+        <tr>
+          <th><b>Mobile Number  :<b></th>
+          <td > <%=@student.mobile_no%></td>
+        </tr>
+        <tr>
+          <th><b>DOB    :<b></th>
+          <td > <%=@student.dob%></td>
+        </tr>
+        <tr>
+          <th><b>Gender :<b></th>
+          <td > <%=@student.gender%></td>
+        </tr>
+        <tr>
+          <th><b>Course  :<b></th>
+          <td > <%=@student.course%></td>
+        </tr>
+        <tr>
+          <th><b>Languages Known  :<b></th>
+          <td > <%=
+          if @student && @student.languages_known
+            languages = JSON.parse @student.languages_known
+            if languages && languages.length > 0
+              final_languages = languages.join(",")
+              @student.languages_known = final_languages
+            end
+          else
+          @student.languages_known
+          end
+          %></td>
+        </tr>
+        <tr>
+          <th><b>Address  :<b></th>
+          <td > <%=@student.address%></td>
+        </tr>
+        <tr>
+          <th><b>Registered Date  :<b></th>
+          <td > <%=@student.created_at%></td>
+        </tr>
+    </table>
+  </div>
+  <ul>
+  <li> <%= link_to "Edit Student", edit_student_path(@student) %> </li>
+  <li> <%= link_to "Go Home", students_path %> </li>
+    <li><%= link_to "Destroy Student", student_path(@student), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure to delete student '#{@student.name}'?"
+        }%>
+    </li>
+  </ul>
+</div>
